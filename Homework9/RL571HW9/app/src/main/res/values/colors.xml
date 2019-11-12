@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F26200EA</color>
+    <color name="colorPrimaryDark">#0a00b6</color>
+    <color name="colorAccent">#F2BF50DA</color>
+    <color name="colorTextFirst">#FF5722</color>
+    <color name="colorTextSecond">#C91702</color>
+    <color name="colorTabIndicator">#F2BF50DA</color>
+    <color name="colorDarkerGrey">#D5616161</color>
+    <color name="colorLighterGrey">#D5E7E7E7</color>
+    <color name="colorMLighterGrey">#D5A2A1A1</color>
+</resources>

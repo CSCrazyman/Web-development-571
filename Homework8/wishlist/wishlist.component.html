@@ -1,0 +1,53 @@
+<div [@animationThree]="_panel === 'result' ? 'in' : 'out'">
+  <div class="container">
+    <div class="container alert alert-warning" role="alert" *ngIf="storage.length === 0">
+      No records.
+    </div>
+
+    <div class="container" *ngIf="storage.length !== 0">
+      <!-- detail button -->
+      <div class="text-right">
+        <button class="btn btn-light" [disabled]="toDetail !== 'yes'" (click)="changeSingleW()">Detail ></button>
+      </div>
+      <br />
+      <!-- wishlist table -->
+      <table class="table table-responsive-sm table-responsive-md wishlist-text-color" *ngIf="storage.length !== 0">
+        <thead><tr class="wishlist-head-color">
+          <th class="wishlist-no-border">#</th><th class="wishlist-no-border">Image</th>
+          <th class="wishlist-no-border">Title</th><th class="wishlist-no-border">Price</th>
+          <th class="wishlist-no-border">Shipping</th><th class="wishlist-no-border">Seller</th>
+          <th class="wishlist-no-border  wish-no-wrap-setting">Wish List</th>
+        </tr></thead>
+        <tbody>
+          <tr *ngFor="let product of wishlist ; let j = index" [ngClass]="(j % 2) === 0 ? 'wishlist-lighter-tr' : 'wishlist-darker-tr'" [class.selected]="product['itemId'][0] === itemId">
+            <td class="wishlist-no-border">{{j + 1}}</td>
+            <td class="wishlist-no-border"><img height="100px" width="100px" src="{{product.galleryURL[0]}}"></td>
+            <td class="wishlist-no-border">
+              <a class="wishlist-link wish-no-wrap-setting" data-toggle="tooltip" data-placement="bottom" title="{{product.title[0]}}" href="javascript:void(0);" (click)="wishToDetails(product['itemId'][0], product)">
+                {{stringCut(product.title[0])}}
+              </a>
+            </td>
+            <td class="wishlist-no-border">${{product.sellingStatus[0].currentPrice[0].__value__}}</td>
+            <!-- shipping -->
+            <td class="wishlist-no-border" *ngIf="product.shippingInfo === undefined || product.shippingInfo[0].shippingServiceCost === undefined">N/A</td>
+            <td class="wishlist-no-border" *ngIf="product.shippingInfo[0].shippingServiceCost[0].__value__ != '0.0'">${{product.shippingInfo[0].shippingServiceCost[0].__value__}}</td>
+            <td class="wishlist-no-border wish-no-wrap-setting" *ngIf="product.shippingInfo[0].shippingServiceCost[0].__value__ == '0.0'">Free Shipping</td>
+            <!-- sellerInfo -->
+            <td class="wishlist-no-border" *ngIf="product.sellerInfo === undefined || product.sellerInfo[0].sellerUserName === undefined || product.sellerInfo[0].sellerUserName[0] === ''">N/A</td>
+            <td class="wishlist-no-border" *ngIf="!(product.sellerInfo === undefined || product.sellerInfo[0].sellerUserName === undefined || product.sellerInfo[0].sellerUserName[0] === '')">{{product.sellerInfo[0].sellerUserName[0].toUpperCase()}}</td>
+            <!-- wish list -->
+            <td class="wishlist-no-border">
+              <button class="btn btn-default wishlist-border-design wishlist-button-color" (click)="removeWish(product['itemId'][0])">
+                <i class="material-icons active wishlist-remove-cart-design">remove_shopping_cart</i>
+              </button>
+            </td>
+          </tr>
+          <tr [ngClass]="(wishlist.length % 2) === 0 ? 'wishlist-lighter-total' : 'wishlist-darker-total'">
+            <th class="wishlist-no-border text-right" colspan="6">Total Shopping</th>
+            <th class="wishlist-no-border">${{computeTotalCost(wishlist)}}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

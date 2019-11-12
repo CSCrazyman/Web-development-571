@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/keyword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="21dp"
+        android:text="@string/keyword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/keywordText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:hint="@string/hint_1"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keyword" />
+
+    <TextView
+        android:id="@+id/keywordError"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/error_msg1"
+        android:textColor="@color/colorTextSecond"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keywordText" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keywordError" />
+
+    <Spinner
+        android:id="@+id/categoryId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="33dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <TextView
+        android:id="@+id/condition"
+        android:layout_width="106dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/condition"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryId" />
+
+    <!-- Condition Checkboxes -->
+    <CheckBox
+        android:id="@+id/con_new"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
+        android:focusable="auto"
+        android:text="@string/con_new"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/condition" />
+
+    <CheckBox
+        android:id="@+id/con_used"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:focusable="auto"
+        android:text="@string/con_used"
+        app:layout_constraintStart_toEndOf="@+id/con_new"
+        app:layout_constraintTop_toBottomOf="@+id/condition" />
+
+    <CheckBox
+        android:id="@+id/con_unsp"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:focusable="auto"
+        android:text="@string/con_unsp"
+        app:layout_constraintStart_toEndOf="@+id/con_used"
+        app:layout_constraintTop_toBottomOf="@+id/condition" />
+
+
+    <TextView
+        android:id="@+id/shipping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/shipping"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_new" />
+
+    <!-- Shipping Checkboxes -->
+    <CheckBox
+        android:id="@+id/shipping_opt1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
+        android:focusable="auto"
+        android:text="@string/shipping_opt1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipping" />
+
+    <CheckBox
+        android:id="@+id/shipping_opt2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:focusable="auto"
+        android:text="@string/shipping_opt2"
+        app:layout_constraintStart_toEndOf="@+id/shipping_opt1"
+        app:layout_constraintTop_toBottomOf="@+id/shipping" />
+
+
+    <!-- Nearby Checkbox -->
+    <TextView
+        android:id="@+id/nearby_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/nearby_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipping_opt1" />
+
+    <CheckBox
+        android:id="@+id/enable_nearby"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:focusable="auto"
+        app:layout_constraintStart_toEndOf="@+id/nearby_text_1"
+        app:layout_constraintTop_toBottomOf="@+id/shipping_opt2" />
+
+
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/distanceText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="50dp"
+        android:ems="10"
+        android:hint="@string/hint_2"
+        android:inputType="textPersonName"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enable_nearby" />
+
+    <TextView
+        android:id="@+id/nearby_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/nearby_2"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanceText" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nearby_text_2">
+
+        <RadioButton
+            android:id="@+id/locationCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/locationOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/location_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/current"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
+    <AutoCompleteTextView
+        android:id="@+id/location_text2"
+        android:layout_width="175dp"
+        android:layout_height="42dp"
+        android:enabled="false"
+        android:hint="@string/hint_3"
+        android:visibility="gone"
+        android:dropDownAnchor="@id/distanceText"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/location_text1" />
+
+    <TextView
+        android:id="@+id/selected_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_text2"
+        android:layout_marginStart="62dp"
+        android:layout_marginEnd="184dp"
+        android:padding="20dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_text2" />
+
+    <TextView
+        android:id="@+id/zipcodeError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="1dp"
+        android:text="@string/error_msg1"
+        android:textColor="@color/colorTextSecond"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorTextFirst"
+        android:text="@string/search"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zipcodeError" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorTextFirst"
+        android:text="@string/clear"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+        app:layout_constraintStart_toEndOf="@+id/buttonSearch"
+        app:layout_constraintTop_toBottomOf="@+id/zipcodeError" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeWork #3</title>
+    <style type="text/css">
+
+        /* New Fonts */
+        @font-face {
+            font-family: "Futura PT Heavy";
+            src: url("Futura PT Heavy.ttf");
+        }
+
+        @font-face {
+            font-family: "Catesque-Light";
+            src: url("Catesque-Light.ttf");
+        }
+
+        @font-face {
+            font-family: "Futura Round Demi";
+            src: url("Futura Round Demi.ttf");
+        }
+
+        /* Basic setting */
+        * {
+            margin:0;
+            padding:0;
+        }
+
+        body {
+            overflow: hidden;
+            width: 820px;
+        }
+
+        /* Sets parallax scrolling */
+        #container{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 820px;
+            height: 100%;
+            margin: 0 auto;
+            perspective: 1px;
+            perspective-origin: 0 0;
+            transform-style: preserve-3d;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        /* Topping setting */
+        #topping-background{
+            position:absolute;
+            z-index: -1;
+            filter:brightness(85%);
+            transform: translateZ(-1px) translateX(-300px) scale(3);
+            transform-origin: 0 0;
+        }
+
+        #topping-viewer{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 0;
+            transform-origin: 0 0;
+            color: white;
+            height: 680px;
+        }
+
+        #topping-title{
+            position: absolute;
+            margin-top: 25px;
+            margin-left: 70px;
+            font-size: 27px;
+        }
+
+        #topping-list{
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            margin-right: 70px;
+            margin-top: 33px;
+            text-align: left;
+            font-size: 10px;
+        }
+
+        #topping-heading{
+            position: absolute;
+            width: 304px;
+            height: auto;
+            left: 255px;
+            top: 188px;
+            font-size: 70px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #topping-content{
+            position: absolute;
+            top: 380px;
+            left: 193px;
+            width: 440px;
+        }
+
+        #topping-button{
+            position: absolute;
+            background-color: white;
+            color:black;
+            left: 355px;
+            top: 508px;
+            width: 110px;
+            height: 40px;
+        }
+
+        /* Font setting */
+        .font-1{
+            font-family: "Futura PT Heavy";
+            letter-spacing: 2.5px;
+        }
+
+        .font-2{
+            font-family: "Futura PT Heavy";
+            letter-spacing: 1px;
+            width: 51px;
+        }
+
+        .font-3{
+            font-family: "Futura PT Heavy";
+            letter-spacing: 1px;
+            width: 65px;
+        }
+
+        .font-4{
+            font-family: "Futura PT Heavy";
+            letter-spacing: 1px;
+            line-height: 1em;
+        }
+
+        .font-5{
+            font-family: "Catesque-Light";
+            font-size: 15px;
+            line-height: 1.75em;
+            text-align: center;
+            font-weight: bold;
+            color: #fafafa;
+        }
+
+        .font-6{
+            font-family: "Futura Round Demi";
+            font-size: 9px;
+            text-align: center;
+            letter-spacing: 1px;
+            line-height: 450%;
+        }
+
+        /* Middle setting */
+        #middle{
+            position: absolute;
+            top: 680px;
+            height: 1000px;
+            width: 820px;
+            background-color: white;
+            z-index: 0;
+            transform: translateZ(0);
+        }
+
+        /* Picture settings */
+        .snow{
+            position: absolute;
+            width: 336px;
+            height: 336px;
+        }
+
+        #snow2{
+            top: 68px;
+            left: 68px;
+            background: url("http://csci571.com/hw/hw3/images/snow2.jpg");
+            background-size: auto 336px;
+            background-position-x: -85px;
+        }
+
+        #snow3{
+            top: 68px;
+            right: 68px;
+            background: url("http://csci571.com/hw/hw3/images/snow3.jpg");
+            background-size: auto 336px;
+            background-position-x: -85px;
+        }
+
+        #snow4{
+            left: 68px;
+            top: 416px;
+            background: url("http://csci571.com/hw/hw3/images/snow4.jpg");
+            background-size: auto 336px;
+            background-position-x: -85px;
+        }
+
+        #snow5{
+            right: 68px;
+            top: 416px;
+            background: url("http://csci571.com/hw/hw3/images/snow5.jpg");
+            background-size: auto 336px;
+            background-position-x: -85px;
+        }
+
+        #middle p{
+            position: absolute;
+            width: 470px;
+            height: auto;
+            left: 175px;
+            top: 820px;
+            font-size: 12px;
+            line-height: 1.5em;
+            text-align: left;
+            font-family: "Catesque-Light";
+        }
+
+        /* bottom setting */
+        #ending-background{
+            position:absolute;
+            z-index: -1;
+            transform: translateZ(-1px) translateX(-460px) scale(1.35);
+            transform-origin: 0 0;
+            filter:brightness(85%);
+            top: 1680px;
+        }
+
+        #ending-viewer{
+            position:absolute;
+            z-index: 0;
+            transform-origin: 0 0;
+            top: 1680px;
+            height: 760px;
+        }
+
+        #ending-viewer p{
+            position: absolute;
+            top: 280px;
+            left: 175px;
+            width: 500px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1.65em;
+            font-family: "Catesque-Light";
+            font-weight: bold;
+            color: #fafafa;
+        }
+
+        #ending-whitespace{
+            position: absolute;
+            width: 820px;
+            height: 105px;
+            bottom: 0px;
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="container">
+
+    <!-- Topping Elements -->
+    <div id="topping-background">
+        <img src="http://csci571.com/hw/hw3/images/snow1.jpg"/>
+    </div>
+    <div id="topping-viewer">
+        <div id="topping-title" class="font-1">SNOWBOARD CENTRAL</div>
+        <table id="topping-list">
+            <tr>
+                <td class="font-2">HOME</td>
+                <td class="font-2">ABOUT</td>
+                <td class="font-3">GALLERY</td>
+                <td class="font-3">JOURNAL</td>
+                <td class="font-3">CONTACT</td>
+            </tr>
+        </table>
+        <div id="topping-heading" class="font-4">Bend the Mind</div>
+        <div id="topping-content" class="font-5">James Jantz is a snowboarder living in Jackson Hole, WY and riding around the world.
+            Lorem ipsum dolor sit amet consectetuer adipiscing elit nam nibh. Nunc varius facilisis eros sed erat in in
+            velit quis arcu ornare laoreet.</div>
+        <div id="topping-button" class="font-6">LEARN MORE</div>
+    </div>
+
+    <!-- Middle Elements -->
+    <div id="middle">
+        <div id="snow2" class="snow"></div>
+        <div id="snow3" class="snow"></div>
+        <div id="snow4" class="snow"></div>
+        <div id="snow5" class="snow"></div>
+        <p>Lorem ipsum dolor sit amet consecteture adipiscing elit nam nibh. Nunc varius facilisis eros sed erat in in velit
+            quis arcu ornare laoreet. Curabitur adipiscing luctus massa. Integer ut purus ac augue commodo. Nunc nec mi eu
+            justo tempor consectetuer. Etiam vitae nisl. In dignissim lacus ut ante.
+            <br />
+            <br />
+            Photography courtesy of Carl Sutter.</p>
+    </div>
+
+    <!-- Bottom Elements -->
+    <div id="ending-background">
+        <img src="http://csci571.com/hw/hw3/images/snow6.jpg"/>
+    </div>
+    <div id="ending-viewer">
+        <p>Lorem ipsum dolor sit amet consecteture adipiscing elit nam nibh. Nunc varius facilisis eros sed erat in in
+            velit quis arcu ornare laoreet.</p>
+        <div id="ending-whitespace"></div>
+    </div>
+
+</div>
+</body>
+</html>

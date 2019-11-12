@@ -1,0 +1,33 @@
+<app-pre-result></app-pre-result>
+<app-search (productsData)="getProInfo($event)" (progressBar)="getProgressBar($event)" (closePanel)="closeResult($event)" (clearAll)="clearPanel()"></app-search>
+<div class="container result-and-wishlist">
+  <div class="container-fluid">
+    <button class="btn" [ngClass]="{'result-button': resultChosen, 'wish-list-button': wishChosen}" (click)="changeToResult()">Results</button>
+    <button class="btn" [ngClass]="{'result-button': (!resultChosen), 'wish-list-button': (!wishChosen)}" (click)="changeToWish()">Wish List</button>
+  </div>
+</div>
+
+
+<div [hidden]="display === true" >
+  <app-results [hidden]="panel1 !== 'result'" [data]="productInfo" [progressBar]="resultProgress" [clearContent]="clearFlag" [choosePanel]="panel1"
+               (singleProduct)="getProDetails($event)" (openDetails)="goToOpenDetails($event)" (singleProductPro)="getProDePro($event)"
+               (goToSingleDetails)="changeToDetails()" (panelChange1)="changeReToDe($event)" (fbURL)="getFbURL($event)"
+               (proPhotos)="getPhotos($event)" (proSimilars)="getSimilars($event)"></app-results>
+
+  <app-details [hidden]="panel2 !== 'detail'" [openSingleProduct]="toDetails" [getDetailsInfo]="proToDetails" [getURL]="fbURL" [getPhotos]="productPhotos"
+               [getSimilars]="similars" [detailProgress]="detailProgress" [singleWhole]="singlePro" [clearContent]="clearFlag"
+               (panelChange2)="changeDeToRe($event)" [choosePanel2]="panel2"></app-details>
+</div>
+
+<div [hidden]="display === false">
+  <app-wishlist [hidden]="panel1W !== 'result'" [choosePanelW]="panel1W" [clearContent]="clearFlag"
+                (singleProductW)="getProDetailsW($event)" (openDetailsW)="goToOpenDetailsW($event)" (singleProductProW)="getProDeProW($event)"
+                (goToSingleDetailsW)="changeToDetailsW()" (panelChange1W)="changeReToDeW($event)" (progessBarW)="getProgressBarW($event)"
+                (fbURLW)="getFbURLW($event)" (proPhotosW)="getPhotosW($event)" (proSimilarsW)="getSimilarsW($event)"></app-wishlist>
+
+  <app-details [hidden]="panel2W !== 'detail'" [openSingleProduct]="toDetailsW" [getDetailsInfo]="proToDetailsW"
+               [detailProgress]="detailProgressW" [singleWhole]="singleProW" [clearContent]="clearFlag"
+               [choosePanel2]="panel2W" [getURL]="fbURLW" [getPhotos]="productPhotosW" [getSimilars]="similarsW"
+               (panelChange2)="changeDeToReW($event)"></app-details>
+</div>
+

@@ -1,0 +1,23 @@
+.form-basic-setting {
+  background: #1d2124;
+  color: #fff;
+  border: 1px solid #1d2124;
+  border-radius: 2px;
+}
+
+.header-setting {
+  font-size: 28px;
+}
+
+.required-signal {
+  color: #ff0000;
+}
+
+.required-text {
+  color: #ff0000;
+  font-size: 15px;
+}
+
+.button_offset {
+  margin-left: 3.3333%;
+}

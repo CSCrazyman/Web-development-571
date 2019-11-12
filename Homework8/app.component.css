@@ -1,0 +1,16 @@
+.result-and-wishlist {
+  margin-top: 22px;
+  margin-bottom: 26px;
+  text-align: center !important;
+}
+
+.result-button {
+  color: #fff;
+  font-size: 16px;
+  background-color: #1d2124;
+  border-color: #1d2124;
+}
+
+.wish-list-button {
+  font-size: 16px;
+}

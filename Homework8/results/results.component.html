@@ -1,0 +1,61 @@
+<div [@animationOne]="_panel === 'result' ? 'in' : 'out'">
+  <!-- progress bar -->
+  <div class="container" *ngIf="products === undefined && progress === true" >
+    <div class="progress">
+      <div class="progress-bar progress-bar-animated progress-bar-striped design-progress-bar"></div>
+    </div>
+  </div>
+  <!-- no record -->
+  <div class="container alert alert-warning" *ngIf="products === undefined && showError === true" role="alert">No records.</div>
+  <!-- correct -->
+  <div class="container" *ngIf="products !== undefined">
+    <!-- detail button -->
+    <div class="text-right">
+      <button class="btn btn-light" [disabled]="toDetail !== 'yes'" (click)="changeSingle()">Detail ></button>
+    </div>
+    <br />
+    <!-- result table -->
+    <table class="table table-responsive-sm table-responsive-md table-text-color" *ngIf="products !== undefined">
+      <thead><tr class="table-head-color">
+        <th class="no-border index-cell">#</th><th class="no-border image-cell">Image</th>
+        <th class="no-border title-cell">Title</th><th class="no-border price-cell">Price</th>
+        <th class="no-border shipping-cell">Shipping</th><th class="no-border zip-cell">Zip</th>
+        <th class="no-border seller-cell">Seller</th><th class="no-border wish-list-cell no-wrap-setting">Wish List</th>
+      </tr></thead>
+      <tbody>
+        <tr *ngFor="let product of products | paginate: {itemsPerPage: 10, currentPage: p}; let i = index" [ngClass]="(i % 2) === 0 ? 'lighter-tr' : 'darker-tr'" [class.active]="product['itemId'] === itemId">
+          <td class="index-cell no-border">{{computeIndex(p, i + 1)}}</td>
+          <td class="image-cell no-border"><img height="100px" width="100px" src="{{product.galleryURL[0]}}"></td>
+          <td class="title-cell no-border">
+            <a class="table-link no-wrap-setting" href="javascript:void(0);" matTooltip="{{product.title[0]}}" (click)="goToDetails(product['itemId'])">
+              {{stringCut(product.title[0])}}
+            </a>
+          </td>
+          <td class="price-cell no-border">${{product.sellingStatus[0].currentPrice[0].__value__}}</td>
+          <!-- shipping -->
+          <td class="shipping-cell no-border" *ngIf="product.shippingInfo === undefined || product.shippingInfo[0].shippingServiceCost === undefined">N/A</td>
+          <td class="shipping-cell no-border" *ngIf="product.shippingInfo[0].shippingServiceCost[0].__value__ != '0.0'">${{product.shippingInfo[0].shippingServiceCost[0].__value__}}</td>
+          <td class="shipping-cell no-border no-wrap-setting" *ngIf="product.shippingInfo[0].shippingServiceCost[0].__value__ == '0.0'">Free Shipping</td>
+          <!-- zip -->
+          <td class="zip-cell no-border" *ngIf="product.postalCode === undefined">N/A</td>
+          <td class="zip-cell no-border" *ngIf="product.postalCode !== undefined">{{product.postalCode}}</td>
+          <!-- sellerInfo -->
+          <td class="seller-cell no-border" *ngIf="product.sellerInfo === undefined || product.sellerInfo[0].sellerUserName === undefined || product.sellerInfo[0].sellerUserName[0] === ''">N/A</td>
+          <td class="seller-cell no-border" *ngIf="!(product.sellerInfo === undefined || product.sellerInfo[0].sellerUserName === undefined || product.sellerInfo[0].sellerUserName[0] === '')">{{product.sellerInfo[0].sellerUserName[0].toUpperCase()}}</td>
+          <!-- wish list -->
+          <td class="wish-list-cell no-border">
+            <button class="btn btn-default border-design table-button-color" (click)="changeToWish(product['itemId'], product)" [hidden]="checkWish(product['itemId'])">
+              <i class="material-icons">add_shopping_cart</i>
+            </button>
+            <button class="btn btn-default border-design table-button-color" (click)="changeToWish(product['itemId'], product)" [hidden]="!checkWish(product['itemId'])">
+              <i class="material-icons active remove-cart-design">remove_shopping_cart</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

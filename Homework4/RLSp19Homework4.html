@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeWork #4</title>
+    <style type="text/css">
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        body{
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #intro{
+            font: bold 20px "normal";
+            margin-top: 15vh;
+            margin-bottom: 2vh;
+        }
+
+        #txt_url{
+            margin-bottom: 2vh;
+        }
+
+    </style>
+    <script type="text/javascript">
+
+        // Gets the length (the number of the properties) of a object.
+        function getObjectLen(obj){
+            var len = 0;
+            for (var i in obj){
+                len ++;
+            }
+            return len;
+        }
+
+        // Forms the film list (the table).
+        function getTable(obj){
+
+            var txt = "", index = 0;
+
+            txt += "<table border='2px'>";
+            // The header of the table
+            txt += "<tr>";
+            for (var x in obj.Header.Data) {
+                txt += "<td style='text-align: center;'>" + obj.Header.Data[x] + "</td>";
+            }
+            txt += "</tr>";
+
+            // The films in the table
+            for (var x in obj.Row) {
+                txt += "<tr>";
+                for (var y in obj.Row[x]) {
+                    if (y == "Hubs") {
+                        txt += "<td><ul>";
+                        for (var z in obj.Row[x][y]["Hub"]) {
+                            if (index == 0) {
+                                txt += "<li><strong>" + obj.Row[x][y]["Hub"][z] + "</strong></li>";
+                                index ++;
+                            }
+                            else {
+                                txt += "<li>" + obj.Row[x][y]["Hub"][z] + "</li>";
+                            }
+                        }
+                        txt += "</ul></td>";
+                        index = 0;
+                    }
+                    else if (y == "HomePage") {
+                        txt += "<td><a style='white-space:nowrap;' href='" + obj.Row[x][y] + "'>" + obj.Row[x][y] + "</a></td>";
+                    }
+                    else if (y == "Logo") {
+                        txt += "<td><img src=" + obj.Row[x][y] + " /></td>";
+                    }
+                    else {
+                        txt += "<td>" + obj.Row[x][y] + "</td>";
+                    }
+                }
+                txt += "</tr>";
+            }
+            txt += "</table>";
+
+            return txt;
+
+        }
+
+        // Uses the data from the JSON File to form a film list.
+        function filmList(filmData){
+            var midObj = filmData.Mainline.Table;
+            // ---------------------- Error Checking #2 ----------------------
+            // Checks whether the JSON File (URL) contains films. If there is
+            // no film, shows the error message and closes the new window; ow,
+            // opens the new window and shows the list.
+            if (getObjectLen(midObj) == 2 && ("Row" in midObj) && midObj.Row.length != 0) {
+                var newWindow = window.open("", "_blank", "width=1080,height=720,toolbar=no,menubar=no,status=no");
+                var newBody = newWindow.document.body;
+                newWindow.document.title = "Highest-grossing films";
+                newBody.innerHTML = getTable(midObj);
+            }
+            else {
+                window.alert("No film! This is not a correct JSON file we want.");
+                document.getElementById("json_file").value = "";
+            }
+
+        }
+
+        // Gets the film list using a JSON File.
+        function getFilmList(){
+
+            var xmlhttp, jsonURL;
+
+            // ----------------------- Checks browser ------------------------
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            }
+            else if (window.ActiveXObject) {
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {}
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch(e) {}
+                if (!xmlhttp) {
+                    window.alert("Cannot create the XMLHttpRequest object!");
+                }
+            }
+
+            jsonURL = document.getElementById("json_file").value.trim();
+            if (jsonURL == "") {
+                window.alert("Please enter a valid JSON File.");
+                document.getElementById("json_file").value = "";
+            }
+            xmlhttp.open("GET", jsonURL, false);
+            xmlhttp.send();
+
+            // ---------------------- Error Checking #1 ----------------------
+            // Checks whether the JSON File (URL) is valid. If valid, opens a
+            // new window and gets the film list; ow, shows error message.
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var myObj = JSON.parse(xmlhttp.responseText);
+                filmList(myObj);
+            }
+            else {
+                window.alert("The JSON file \"" + jsonURL + "\" does not exist! Please enter again.");
+                document.getElementById("json_file").value = "";
+            }
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <p id="intro">Enter URL for Highest-grossing films List JSON File</p>
+    <div id="txt_url">
+        <input id="json_file" type="text" name="json_file_url" />
+    </div>
+    <div id="submit_button">
+        <input type="button" name="confirm" value="Submit Query" onclick="getFilmList()" />
+    </div>
+</body>
+</html>

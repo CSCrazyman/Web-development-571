@@ -1,0 +1,66 @@
+::ng-deep .mat-tooltip {
+  /* your own custom styles here */
+  width: 200px !important;
+  color: #d3d3d3 !important;
+  background-color: #4e5557 !important;
+}
+
+.design-progress-bar {
+  width: 50%;
+}
+
+.no-border {
+  border-style: none;
+}
+
+.table-head-color {
+   background-color: #1d2124;
+}
+
+.darker-tr {
+  background-color: #1d2124;
+}
+
+.lighter-tr{
+  background-color: #272b2e;
+}
+
+.lighter-tr:hover, .darker-tr:hover {
+  background-color: #303638;
+}
+
+.table-link, .table-link.visited, .table-link:hover {
+  color: #0066cc;
+}
+
+.table-link:hover {
+  text-decoration: underline;
+}
+
+.table-text-color {
+  color: #fff;
+}
+
+.table-button-color {
+  background-color: #fff;
+}
+
+.border-design {
+  border-color: #CECECF;
+}
+
+.remove-cart-design {
+  color: #ffd700;
+}
+
+table tr.active {
+  background-color: #d1d1d1 !important;
+}
+
+table tr.active:hover {
+  background-color: #bababa !important;
+}
+
+.no-wrap-setting {
+  white-space: nowrap;
+}

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Product Search</string>
+    <string name="tab_opt1_name">SEARCH</string>
+    <string name="tab_opt2_name">WISH LIST</string>
+    <string name="keyword">Keyword</string>
+    <string name="category">Category</string>
+    <string name="condition">Condition</string>
+    <string name="con_new">New</string>
+    <string name="con_used">Used</string>
+    <string name="con_unsp">Unspecified</string>
+    <string name="shipping">Shipping Options</string>
+    <string name="shipping_opt1">Local Pickup</string>
+    <string name="shipping_opt2">Free Shipping</string>
+    <string name="nearby_1">Enable Nearby Search</string>
+    <string name="nearby_2">From</string>
+    <string name="current">Current Location</string>
+    <string name="hint_1">Enter Keyword</string>
+    <string name="hint_2">Miles from</string>
+    <string name="hint_3">zipcode</string>
+    <string name="search">SEARCH</string>
+    <string name="clear">CLEAR</string>
+    <string name="error_msg1">Please enter mandatory field</string>
+    <string name="app_result">Search Results</string>
+    <string name="app_waiting">Searching Products...</string>
+    <string name="tab_detail_1">PRODUCT</string>
+    <string name="tab_detail_2">SHIPPING</string>
+    <string name="tab_detail_3">PHOTOS</string>
+    <string name="tab_detail_4">SIMILAR</string>
+</resources>

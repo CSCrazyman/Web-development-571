@@ -1,0 +1,295 @@
+<div [@animationTwo]="(detailsOpened === 'openSinglePro' || _panel2 === 'detail') ? 'in' : 'out'">
+  <!----------- Progress Bar ----------->
+  <div class="container" [hidden]="detailsProgressBar !== true" *ngIf="(detailsOpened === 'openSinglePro' || _panel2 === 'detail') && detailsInfo === undefined">
+    <div class="progress">
+      <div class="progress-bar progress-bar-animated progress-bar-striped detail-progress-bar"></div>
+    </div>
+  </div>
+  <!---------- Details Info ----------->
+  <div class="container" *ngIf="detailsInfo !== undefined">
+    <!----------- Details Title ----------->
+    <div>
+      <p class="text-center detail-title-design" *ngIf="detailsInfo['Item']['Title'] !== undefined">{{detailsInfo['Item']['Title']}}</p>
+    </div>
+    <!----------- Return to Result, share, and wish list ----------->
+    <div class="row justify-content-between" style="margin-bottom: 2px;">
+      <div class="col-4"><button class="btn btn-light" (click)="goToResult()">< List</button></div>
+      <div class="col-6" align="right">
+        <a [href]="facebookURL" target="_blank"><img class="facebook-logo" src="http://csci571.com/hw/hw8/Images/facebook.png"></a>&nbsp;
+        <button class="btn btn-default detail-border-design detail-button-color" (click)="changeToWish(singlePro['itemId'], singlePro)" [hidden]="checkWish(singlePro['itemId'])">
+          <i class="material-icons">add_shopping_cart</i>
+        </button>
+        <button class="btn btn-default detail-border-design detail-button-color" (click)="changeToWish(singlePro['itemId'], singlePro)" [hidden]="!checkWish(singlePro['itemId'])">
+          <i class="material-icons active detail-remove-cart-design">remove_shopping_cart</i>
+        </button>
+      </div>
+    </div>
+    <!----------- navigation bars ----------->
+    <div class="container" style="padding: 0px;">
+      <ul class="nav nav-tabs justify-content-end" role="tablist" *ngIf="detailsInfo !== undefined">
+        <li class="nav-item">
+          <a class="nav-link nav-link-diy" [ngClass]="navBars === 'product' ? 'detail-nav-chosen' : 'detail-nav-nochosen'" (click)="navBars = 'product'" href="#">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-diy" [ngClass]="navBars === 'photos' ? 'detail-nav-chosen' : 'detail-nav-nochosen'" (click)="navBars = 'photos'" href="#">Photos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-diy" [ngClass]="navBars === 'shipping' ? 'detail-nav-chosen' : 'detail-nav-nochosen'"  (click)="navBars = 'shipping'" href="#">Shipping</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-diy" [ngClass]="navBars === 'seller' ? 'detail-nav-chosen' : 'detail-nav-nochosen'" (click)="navBars = 'seller'" href="#">Seller</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-diy" [ngClass]="navBars === 'similar' ? 'detail-nav-chosen' : 'detail-nav-nochosen'" (click)="navBars = 'similar'" href="#">
+            <span *ngIf="windowWidth >= 768">Similar Products</span>
+            <span *ngIf="windowWidth < 768">Related</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!----------- product details ----------->
+    <table class="table table-responsive-sm table-responsive-md detail-text-color" *ngIf="detailsInfo !== undefined" [hidden]="navBars !== 'product'">
+      <tr *ngFor="let single of productInfoArr ; let j = index" [ngClass]=" (j % 2) === 0 ? 'detail-lighter-tr' : 'detail-darker-tr'">
+        <!-- product Images (including modal)-->
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Product Images</h5>
+            <a href="javascript:void(0);" class="modal-close-design" (click)="modal.close()">
+              &times;
+            </a>
+          </div>
+          <div class="modal-body">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" *ngIf="detailsInfo['Item']['PictureURL'] !== undefined && detailsInfo['Item']['PictureURL'].length !== 0">
+              <div class="carousel-inner">
+                <div class="carousel-item pictures-container" *ngFor="let one of detailsInfo['Item']['PictureURL'] ; let i = index" [ngClass]="i === 0 ? 'active' : ''">
+                  <a href="{{one}}" target="_blank"><img class="d-block w-100 pro-images" src="{{one}}" alt=""></a>
+                </div>
+              </div>
+              <a  *ngIf="detailsInfo['Item']['PictureURL'].length !== 1" class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon carousel-button-design" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a *ngIf="detailsInfo['Item']['PictureURL'].length !== 1" class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon  carousel-button-design" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+          </div>
+        </ng-template>
+        <th *ngIf="single === 0" class="detail-no-border details-no-wrap product-media-1">Product Images</th>
+        <td *ngIf="single === 0" class="detail-no-border product-media-2">
+          <a class="store-link-design" href="javascript:void(0);" (click)="open(content)">View Product Images Here</a>
+        </td>
+        <!-- Subtitle -->
+        <th *ngIf="single === 1" class="detail-no-border product-media-1">Subtitle</th>
+        <td *ngIf="single === 1" class="detail-no-border product-media-2">{{detailsInfo['Item']['Subtitle']}}</td>
+        <!-- Price -->
+        <th *ngIf="single === 2" class="detail-no-border product-media-1">Price</th>
+        <td *ngIf="single === 2" class="detail-no-border product-media-2">${{detailsInfo['Item']['CurrentPrice']['Value']}}</td>
+        <!-- Location -->
+        <th *ngIf="single === 3" class="detail-no-border product-media-1">Location</th>
+        <td *ngIf="single === 3" class="detail-no-border product-media-2">{{detailsInfo['Item']['Location']}}</td>
+        <!-- Return Policy -->
+        <th *ngIf="single === 4" class="detail-no-border product-media-1">Return Policy</th>
+        <td *ngIf="single === 4" class="detail-no-border product-media-2">
+          <span *ngIf="detailsInfo['Item']['ReturnPolicy']['ReturnsAccepted'] === 'ReturnsNotAccepted'">
+            Returns Not Accepted
+          </span>
+          <span *ngIf="detailsInfo['Item']['ReturnPolicy']['ReturnsAccepted'] !== 'ReturnsNotAccepted'">
+            Returns Accepted Within {{detailsInfo['Item']['ReturnPolicy']['ReturnsWithin']}} Days
+          </span>
+        </td>
+        <!-- ItemSpecifics -->
+        <th *ngIf="single !== 4 && single !== 3 && single !== 2 && single !== 1 && single !== 0" class="detail-no-border details-no-wrap product-media-1">{{single['name']}}</th>
+        <td *ngIf="single !== 4 && single !== 3 && single !== 2 && single !== 1 && single !== 0" class="detail-no-border product-media-2">{{specifyValuePro(single['value'])}}</td>
+      </tr>
+    </table>
+    <!----------- photo details ----------->
+    <div class="container" *ngIf="photos !== undefined" [hidden]="navBars !== 'photos'">
+      <div class="row">
+        <div class="col-md-4 col-sm-12" style="padding: 0px;">
+          <div class="img-container-side"><a href="{{photos['items'][0]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][0]['link']}}"></a></div>
+          <div class="img-container-side"><a href="{{photos['items'][3]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][3]['link']}}"></a></div>
+        </div>
+        <div class="col-md-4 col-sm-12" style="padding: 0px;">
+          <div class="img-container-md"><a href="{{photos['items'][1]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][1]['link']}}"></a></div>
+          <div class="img-container-md"><a href="{{photos['items'][4]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][4]['link']}}"></a></div>
+          <div class="img-container-md"><a href="{{photos['items'][6]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][6]['link']}}"></a></div>
+        </div>
+        <div class="col-md-4 col-sm-12" style="padding: 0px;">
+          <div class="img-container-side"><a href="{{photos['items'][2]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][2]['link']}}"></a></div>
+          <div class="img-container-side"><a href="{{photos['items'][5]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][5]['link']}}"></a></div>
+          <div class="img-container-side"><a href="{{photos['items'][7]['link']}}" target="_blank"><img class="photos" src="{{photos['items'][7]['link']}}"></a></div>
+        </div>
+      </div>
+    </div>
+    <!----------- shipping details ----------->
+    <table class="table table-responsive-sm table-responsive-md detail-text-color" *ngIf="singlePro !== undefined" [hidden]="navBars !== 'shipping'">
+      <tr *ngFor="let single of shipInfoArr ; let j = index" [ngClass]=" (j % 2) === 0 ? 'detail-lighter-tr' : 'detail-darker-tr'">
+        <!-- Shipping Cost -->
+        <th *ngIf="single === 0" class="detail-no-border shipping-media-1">Shipping Cost</th>
+        <td *ngIf="single === 0" class="detail-no-border shipping-media-2">
+          <span *ngIf="singlePro['shippingInfo'][0]['shippingServiceCost'][0]['__value__'] != '0.0'">
+            ${{singlePro['shippingInfo'][0]['shippingServiceCost'][0]['__value__']}}
+          </span>
+          <span class="details-no-wrap" *ngIf="singlePro['shippingInfo'][0]['shippingServiceCost'][0]['__value__'] == '0.0'">
+            Free Shipping
+          </span>
+        </td>
+        <!-- Shipping Locations -->
+        <th *ngIf="single === 1" class="detail-no-border shipping-media-1">Shipping Locations</th>
+        <td *ngIf="single === 1" class="detail-no-border shipping-media-2">{{specifyValuePro(singlePro['shippingInfo'][0]['shipToLocations'])}}</td>
+        <!-- Handling Time -->
+        <th *ngIf="single === 2" class="detail-no-border shipping-media-1">Handling Time</th>
+        <td *ngIf="single === 2" class="detail-no-border shipping-media-2">{{singlePro['shippingInfo'][0]['handlingTime'][0]}}
+          <span *ngIf="singlePro['shippingInfo'][0]['handlingTime'][0] === '1'">Day</span>
+          <span *ngIf="singlePro['shippingInfo'][0]['handlingTime'][0] !== '1'">Days</span>
+        </td>
+        <!-- Expedited Shipping -->
+        <th *ngIf="single === 3" class="detail-no-border shipping-media-1">Expedited Shipping</th>
+        <td *ngIf="single === 3" class="detail-no-border shipping-media-2">
+          <i class="material-icons true-design" *ngIf="singlePro['shippingInfo'][0]['expeditedShipping'][0] === 'true'">check</i>
+          <i class="material-icons false-design" *ngIf="singlePro['shippingInfo'][0]['expeditedShipping'][0] === 'false'">close</i>
+        </td>
+        <!-- One Day Shipping -->
+        <th *ngIf="single === 4" class="detail-no-border shipping-media-1">One Day Shipping</th>
+        <td *ngIf="single === 4" class="detail-no-border shipping-media-2">
+          <i class="material-icons true-design" *ngIf="singlePro['shippingInfo'][0]['oneDayShippingAvailable'][0] === 'true'">check</i>
+          <i class="material-icons false-design" *ngIf="singlePro['shippingInfo'][0]['oneDayShippingAvailable'][0] === 'false'">close</i>
+        </td>
+        <!-- Returns Accepted -->
+        <th *ngIf="single === 5" class="detail-no-border shipping-media-1">Return Accepted</th>
+        <td *ngIf="single === 5" class="detail-no-border shipping-media-2">
+          <i class="material-icons true-design" *ngIf="singlePro['returnsAccepted'][0] === 'true'">check</i>
+          <i class="material-icons false-design" *ngIf="singlePro['returnsAccepted'][0] === 'false'">close</i>
+        </td>
+      </tr>
+    </table>
+    <!----------- seller details ----------->
+    <table class="table table-responsive-sm table-responsive-md detail-text-color" *ngIf="singlePro !== undefined" [hidden]="navBars !== 'seller'">
+      <tr *ngFor="let single of sellerInfoArr ; let j = index" [ngClass]=" (j % 2) === 0 ? 'detail-lighter-tr' : 'detail-darker-tr'">
+        <!-- sellerUserName -->
+        <th *ngIf="single === 0" colspan="2" class="text-center detail-no-border seller-store-name">
+          {{removeSpace(singlePro['sellerInfo'][0]['sellerUserName'][0]).toUpperCase()}}
+        </th>
+        <!-- Feedback Score -->
+        <th *ngIf="single === 1" class="detail-no-border seller-media-1">Feedback Score</th>
+        <td *ngIf="single === 1" class="detail-no-border seller-media-2">{{singlePro['sellerInfo'][0]['feedbackScore'][0]}}</td>
+        <!-- Popularity -->
+        <th *ngIf="single === 2" class="detail-no-border seller-media-1" style="vertical-align: middle !important;">Popularity</th>
+        <td *ngIf="single === 2" class="detail-no-border seller-media-2">
+          <div class="popularity-design progress-wrapper">
+            <round-progress [current]="singlePro['sellerInfo'][0]['positiveFeedbackPercent'][0]"
+                          [max]="100" [color]="'#09700e'" [responsive]="true" [stroke]="12">
+            </round-progress>
+            <div class="percent-design">{{singlePro['sellerInfo'][0]['positiveFeedbackPercent'][0]}}</div>
+          </div>
+        </td>
+        <!-- Feedback Rating Star -->
+        <th *ngIf="single === 3" class="detail-no-border seller-media-1">Feedback Rating Star</th>
+        <td *ngIf="single === 3" class="detail-no-border seller-media-2" style="vertical-align: middle !important;">
+          <i class="material-icons" style="color: #cdc808;" *ngIf="feedbackScore >= 10 && feedbackScore < 49">star_border</i>
+          <i class="material-icons" style="color: #0908b4;" *ngIf="feedbackScore >= 50 && feedbackScore < 100">star_border</i>
+          <i class="material-icons" style="color: #36a898;" *ngIf="feedbackScore >= 100 && feedbackScore < 500">star_border</i>
+          <i class="material-icons" style="color: #6e006e;" *ngIf="feedbackScore >= 500 && feedbackScore < 1000">star_border</i>
+          <i class="material-icons" style="color: #900000;" *ngIf="feedbackScore >= 1000 && feedbackScore < 5000">star_border</i>
+          <i class="material-icons" style="color: #007300;" *ngIf="feedbackScore >= 5000 && feedbackScore < 10000">star_border</i>
+          <i class="material-icons" style="color: #cdc808;" *ngIf="feedbackScore >= 10000 && feedbackScore < 25000">stars</i>
+          <i class="material-icons" style="color: #36a898;" *ngIf="feedbackScore >= 25000 && feedbackScore < 50000">stars</i>
+          <i class="material-icons" style="color: #6e006e;" *ngIf="feedbackScore >= 50000 && feedbackScore < 100000">stars</i>
+          <i class="material-icons" style="color: #900000;" *ngIf="feedbackScore >= 100000 && feedbackScore < 500000">stars</i>
+          <i class="material-icons" style="color: #007300;" *ngIf="feedbackScore >= 500000 && feedbackScore < 1000000">stars</i>
+          <i class="material-icons" style="color: #9c9c9c;" *ngIf="feedbackScore >= 1000000">stars</i>
+        </td>
+        <!-- Top Rated -->
+        <th *ngIf="single === 4" class="detail-no-border seller-media-1">Top Rated</th>
+        <td *ngIf="single === 4" class="detail-no-border seller-media-2">
+          <i class="material-icons true-design" *ngIf="singlePro['sellerInfo'][0]['topRatedSeller'][0] === 'true'">check</i>
+          <i class="material-icons false-design" *ngIf="singlePro['sellerInfo'][0]['topRatedSeller'][0] === 'false'">close</i>
+        </td>
+        <!-- Store Name -->
+        <th *ngIf="single === 5" class="detail-no-border seller-media-1">Store Name</th>
+        <td *ngIf="single === 5" class="detail-no-border seller-media-2">{{singlePro['storeInfo'][0]['storeName'][0]}}</td>
+        <!-- Store URL -->
+        <th *ngIf="single === 6" class="detail-no-border seller-media-1">Buy Product At</th>
+        <td *ngIf="single === 6" class="detail-no-border seller-media-2">
+          <a class="store-link-design" href="{{singlePro['storeInfo'][0]['storeURL'][0]}}" target="_blank">Store</a>
+        </td>
+      </tr>
+    </table>
+    <!----------- similar details ----------->
+    <div *ngIf="detailsInfo !== undefined" [hidden]="navBars !== 'similar'">
+      <div class="container alert alert-warning" role="alert" [hidden]="navBars !== 'similar'"
+           *ngIf="similarPro === undefined || similarPro['getSimilarItemsResponse']['itemRecommendations']['item'] === undefined || similarPro['getSimilarItemsResponse']['itemRecommendations']['item'].length === 0">
+        No records.
+      </div>
+      <!----------- select panels ----------->
+      <br />
+      <div *ngIf="similarPro !== undefined">
+        <form *ngIf="similarPro !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'] !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'].length !== 0">
+          <div class="form-row">
+            <div class="form-group col-sm-2 col-md-2">
+              <!-- first select panel -->
+              <select class="form-control" *ngIf="detailsInfo !== undefined && similarPro !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'] !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'].length !== 0"
+                      [hidden]="navBars !== 'similar'" name="opt1" [(ngModel)]="opt1" (change)="sortSimilar1(opt1)">
+                <option value="default" (click)="opt1 = 'default'">Default</option>
+                <option value="name" (click)="opt1 = 'name'">Product Name</option>
+                <option value="days" (click)="opt1 = 'days'">Days Left</option>
+                <option value="price" (click)="opt1 = 'price'">Price</option>
+                <option value="shipping" (click)="opt1 = 'shipping'">Shipping Cost</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2 col-md-2">
+              <!-- second select panel -->
+              <select class="form-control" *ngIf="detailsInfo !== undefined && similarPro !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'] !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'].length !== 0"
+                      [hidden]="navBars !== 'similar'" name="opt2" [(ngModel)]="opt2" (change)="sortSimilar2(opt2)"
+                      [disabled] = "opt1 === 'default'">
+                <option value="ascending" (click)="opt2 = 'ascending'">Ascending</option>
+                <option value="descending" (click)="opt2 = 'descending'">Descending</option>
+              </select>
+            </div>
+          </div>
+        </form>
+        <!----------- similar table (0 - 5) ----------->
+        <div class="card flex-row flex-wrap card-margin-top card-total-bg" *ngFor="let single of sortedArr | slice:0:5;">
+            <div class="card-header border-0 card-total-bg">
+            <img class="similar-picture" src="{{single['imageURL']}}" alt="" />
+          </div>
+          <div class="card-block px-0 card-total-bg">
+            <p *ngIf="single['title'] !== undefined" style="margin-top: 20px; margin-bottom: 5px;"><a class="store-link-design" href="{{single['viewItemURL']}}" target="_blank">{{single['title']}}</a></p>
+            <p *ngIf="single['buyItNowPrice'] !== undefined" style="color: #a5c261; margin-bottom: 5px;">Price: ${{single['buyItNowPrice']['__value__']}}</p>
+            <p *ngIf="single['shippingCost'] !== undefined" style="color: #c2ac45; margin-bottom: 5px;">Shipping Cost: ${{single['shippingCost']['__value__']}}</p>
+            <p *ngIf="single['timeLeft'] !== undefined" style="color: #fff; margin-bottom: 5px;">Days Left: {{getLeftDay(single['timeLeft'])}}</p>
+          </div>
+        </div>
+        <!----------- similar table (5 - 15) ----------->
+        <div *ngIf="sortedArr.length > 5" [hidden]="showMoreOrLess">
+          <div class="card flex-row flex-wrap card-margin-top card-total-bg" *ngFor="let single of sortedArr | slice:5;">
+            <div class="card-header border-0 card-total-bg">
+              <img class="similar-picture" src="{{single['imageURL']}}" alt="" />
+            </div>
+            <div class="card-block px-0 card-total-bg">
+              <p *ngIf="single['title'] !== undefined" style="margin-top: 20px; margin-bottom: 5px;"><a class="store-link-design" href="{{single['viewItemURL']}}" target="_blank">{{single['title']}}</a></p>
+              <p *ngIf="single['buyItNowPrice'] !== undefined" style="color: #a5c261; margin-bottom: 5px;">Price: ${{single['buyItNowPrice']['__value__']}}</p>
+              <p *ngIf="single['shippingCost'] !== undefined" style="color: #c2ac45; margin-bottom: 5px;">Shipping Cost: ${{single['shippingCost']['__value__']}}</p>
+              <p *ngIf="single['timeLeft'] !== undefined" style="color: #fff; margin-bottom: 5px;">Days Left: {{getLeftDay(single['timeLeft'])}}</p>
+            </div>
+          </div>
+        </div>
+        <!----------- Show more or less ----------->
+        <div  class="text-center" *ngIf="sortedArr.length > 5">
+          <button *ngIf="detailsInfo !== undefined && similarPro !== undefined && similarPro['getSimilarItemsResponse']['itemRecommendations']['item'] !== undefined"
+                  class="btn show-button" [hidden]="navBars !== 'similar'" (click)="changeMoreAndLess()" [ngClass] = "showMoreOrLess ? 'more-margin-top' : 'less-margin-top'">
+            <span *ngIf="showMoreOrLess">Show More</span>
+            <span *ngIf="!showMoreOrLess">Show Less</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,55 @@
+.wishlist-no-border {
+  border-style: none;
+}
+
+.wishlist-head-color {
+  background-color: #1d2124;
+}
+
+.wishlist-darker-tr, .wishlist-darker-total {
+  background-color: #1d2124;
+}
+
+.wishlist-lighter-tr, .wishlist-lighter-total {
+  background-color: #272b2e;
+}
+
+.wishlist-lighter-tr:hover, .wishlist-darker-tr:hover {
+  background-color: #303638;
+}
+
+.wishlist-link, .wishlist-link.visited, .wishlist-link:hover {
+  color: #0066cc;
+}
+
+.wishlist-link:hover {
+  text-decoration: underline;
+}
+
+.wishlist-text-color {
+  color: #fff;
+}
+
+.wishlist-button-color {
+  background-color: #fff;
+}
+
+.wishlist-border-design {
+  border-color: #CECECF;
+}
+
+.wishlist-remove-cart-design {
+  color: #ffd700;
+}
+
+table tr.selected {
+  background-color: #d1d1d1 !important;
+}
+
+table tr.selected:hover {
+  background-color: #bababa !important;
+}
+
+.wish-no-wrap-setting {
+  white-space: nowrap;
+}
